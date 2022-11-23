@@ -23,6 +23,11 @@ public class MovieDetailViewModel extends AndroidViewModel {
 
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final MutableLiveData<List<Trailer>> trailers = new MutableLiveData<>();
+    private final MutableLiveData<List<Review>> reviews = new MutableLiveData<>();
+
+    public LiveData<List<Review>> getReviews() {
+        return reviews;
+    }
 
     public LiveData<List<Trailer>> getTrailers() {
         return trailers;
@@ -46,6 +51,25 @@ public class MovieDetailViewModel extends AndroidViewModel {
                     @Override
                     public void accept(List<Trailer> trailerList) throws Throwable {
                         trailers.setValue(trailerList);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Throwable {
+                        Log.d(TAG, throwable.toString());
+                    }
+                });
+        compositeDisposable.add(disposable);
+    }
+
+    public void loadReviews(int id){
+        Disposable disposable = ApiFactory.apiService.loadReviews(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ReviewsResponse>() {
+                    @Override
+                    public void accept(ReviewsResponse reviewsResponse) throws Throwable {
+                        //можно так, а можно, как в трейлерах, через оператор map, чтобы сразу прилетала коллекция фильмов
+                        reviews.setValue(reviewsResponse.getReviews());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
