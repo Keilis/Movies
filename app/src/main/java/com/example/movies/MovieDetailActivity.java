@@ -84,8 +84,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void initViews(){
-        imageViewPoster = findViewById(R.id.imageViewPoster);
         textViewTitle = findViewById(R.id.textViewTitle);
+        imageViewPoster = findViewById(R.id.imageViewPoster);
         textViewYear = findViewById(R.id.textViewYear);
         textViewDescription = findViewById(R.id.textViewDescription);
         recyclerViewTrailers = findViewById(R.id.recyclerViewTrailers);
