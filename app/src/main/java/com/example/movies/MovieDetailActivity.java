@@ -81,9 +81,15 @@ public class MovieDetailActivity extends AppCompatActivity {
                 reviewsAdapter.setReviews(reviewList);
             }
         });
+
+        //тест работы базы данных
+        //MovieDao movieDao = MovieDatabase.getInstance(getApplication()).movieDao();
+        //movieDao.insertMovie(movie)
+        //         .subscribeOn(Schedulers.io())
+        //         .subscribe();
     }
 
-    private void initViews(){
+    private void initViews() {
         textViewTitle = findViewById(R.id.textViewTitle);
         imageViewPoster = findViewById(R.id.imageViewPoster);
         textViewYear = findViewById(R.id.textViewYear);
@@ -92,7 +98,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         recyclerViewReviews = findViewById(R.id.recyclerViewReviews);
     }
 
-    public static Intent newIntent (Context context, Movie movie){
+    public static Intent newIntent(Context context, Movie movie) {
         Intent intent = new Intent(context, MovieDetailActivity.class);
         intent.putExtra(EXTRA_MOVIE, movie);
         return intent;
